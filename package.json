@@ -1,0 +1,18 @@
+{
+  "name": "mcproxy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "minecraft-data": "^2.89.4",
+    "minecraft-protocol": "^1.25.0",
+    "node-tcp-proxy": "^0.0.21",
+    "nodejs-tcp-ping": "^1.0.3"
+  }
+}

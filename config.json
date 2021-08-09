@@ -1,0 +1,24 @@
+{
+    "proxy" : {
+        "port": "25565"
+    },
+    "server" : {
+        "port": "25566",
+        "ip": "localhost"
+    },
+    "fallback" : {
+        "timeout": "5000",
+        "interval": "1000",
+        "port": "25567",
+        "settings": {
+            "favicon": "server-icon.png",
+            "version": "1.17.1",
+            "motd": "&9&lnes. &f- &cWylaczony\n&7Wejdz na nasz serwer Discord: &fdiscord.gg/t3pMdks4",
+            "message": "&c&lSerwer jest aktualnie wylaczony\n&7Wpadnij do nas pozniej!",
+            "players" : {
+                "online": 1234,
+                "max" : 5678
+            }
+        }
+    }
+}
