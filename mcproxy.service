@@ -1,0 +1,16 @@
+[Unit]
+Description=MCProxy
+
+[Service]
+WorkingDirectory=/home/mc/mcproxy
+
+User=mc
+Group=mc
+
+Restart=always
+
+ExecStart=/usr/bin/screen -DmS mcproxy node index.js
+ExecStop=/usr/bin/screen -X -S mcproxy quit
+
+[Install]
+WantedBy=multi-user.target
