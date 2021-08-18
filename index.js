@@ -1,15 +1,12 @@
 const fs = require('fs');
+const { exec } = require('child_process');
 
-const tcp = require('node-tcp-proxy');
 const tcping = require('nodejs-tcp-ping')
 
 const mc = require('minecraft-protocol');
 const mcdata = require('minecraft-data');
 
 const config = require('./config.json');
-
-/** @type {tcp.TcpProxy} */
-let tproxy;
 
 // Set up fallback server
 
@@ -58,34 +55,21 @@ async function proxyLoop()
 {
     const valid = await verify();
 
-
     if(valid != lastState)
     {
         if(valid)
         {
             console.log("Setting up production proxy");
-            if(tproxy)
-            {
-                tproxy.end();
-            }
             
-            tproxy = tcp.createProxy(
-                config.proxy.port,
-                config.server.ip,
-                config.server.port
-            );
+            await unsetRedirect(config.proxy.port, config.fallback.port);
+            await setRedirect(config.proxy.port, config.server.port);
+            await applyRedirect();
         }else{
             console.log("Setting up fallback proxy")
-            if(tproxy)
-            {
-                tproxy.end();
-            }
             
-            tproxy = tcp.createProxy(
-                config.proxy.port,
-                "localhost",
-                config.fallback.port
-            );
+            await unsetRedirect(config.proxy.port, config.fallback.port);
+            await setRedirect(config.proxy.port, config.server.port);
+            await applyRedirect();
         }
     
         lastState = valid;
@@ -94,6 +78,47 @@ async function proxyLoop()
     setTimeout(() => {
         proxyLoop();
     }, config.fallback.interval);
+}
+
+async function shell(command)
+{
+    try {
+        await exec(command);
+    } catch (error) {
+        console.log("  BASH ERR:" + error);
+    }
+}
+
+function formatCommand(cmd, from, to)
+{
+    return cmd
+        .split('{from}').join(from)
+        .split('{to}').join(to);
+}
+
+async function runCommands(cmds, from, to)
+{
+    for(let cmd of cmds)
+    {
+        const fcmd = formatCommand(cmd, from, to);
+        await shell(fcmd);
+    }
+}
+
+async function setRedirect(from, to)
+{
+    console.log(` SET ${from} -> ${to}`);
+    await runCommands(config.shell.set, from, to);
+}
+async function unsetRedirect(from, to)
+{
+    console.log(` UNSET ${from} -> ${to}`);
+    await runCommands(config.shell.unset, from, to);
+}
+async function applyRedirect()
+{
+    console.log(` APPLY`);
+    await runCommands(config.shell.apply, null,null);
 }
 
 proxyLoop();

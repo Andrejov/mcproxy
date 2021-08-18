@@ -1,5 +1,6 @@
 [Unit]
 Description=MCProxy
+After=network.target
 
 [Service]
 WorkingDirectory=/home/mc/mcproxy

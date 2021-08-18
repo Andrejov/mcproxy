@@ -12,7 +12,6 @@
   "dependencies": {
     "minecraft-data": "^2.89.4",
     "minecraft-protocol": "^1.25.0",
-    "node-tcp-proxy": "^0.0.21",
     "nodejs-tcp-ping": "^1.0.3"
   }
 }
