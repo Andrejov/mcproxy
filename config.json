@@ -23,13 +23,13 @@
     },
     "shell" : {
         "set": [
-            "iptables -t nat -A PREROUTING -i enp0s31f6 -p tcp --dport {from} -j REDIRECT --to-port {to}"
+            "/usr/sbin/iptables -t nat -A PREROUTING -i enp0s31f6 -p tcp --dport {from} -j REDIRECT --to-port {to}"
         ],
         "unset": [
-            "iptables -t nat -D PREROUTING -i enp0s31f6 -p tcp --dport {from} -j REDIRECT --to-port {to}"
+            "/usr/sbin/iptables -t nat -D PREROUTING -i enp0s31f6 -p tcp --dport {from} -j REDIRECT --to-port {to}"
         ],
         "apply": [
-            "iptables-save"
+            "/usr/sbin/iptables-save"
         ]
     }
 }
