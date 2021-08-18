@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { exec } = require('child_process');
+const { execSync } = require('child_process');
 
 const tcping = require('nodejs-tcp-ping')
 
@@ -83,7 +83,8 @@ async function proxyLoop()
 async function shell(command)
 {
     try {
-        await exec(command);
+        const stdout = await execSync(command).toString();
+        console.log("  stdout:" + stdout);
     } catch (error) {
         console.log("  BASH ERR:" + error);
     }
