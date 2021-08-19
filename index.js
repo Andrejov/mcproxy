@@ -67,8 +67,8 @@ async function proxyLoop()
         }else{
             console.log("Setting up fallback proxy")
             
-            await unsetRedirect(config.proxy.port, config.fallback.port);
-            await setRedirect(config.proxy.port, config.server.port);
+            await unsetRedirect(config.proxy.port, config.server.port);
+            await setRedirect(config.proxy.port, config.fallback.port);
             await applyRedirect();
         }
     
