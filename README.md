@@ -38,3 +38,11 @@ Server list entry message
 Message sent by server when a client tries to join
 ##### [...]`.players`
 Number of `online`/`max` players
+#### `shell.set`
+Shell command(s) to add port redirect rule (eg. iptables -A ...)  
+Available placeholders: `{from}` and `{to}`
+#### `shell.unset`
+Shell command(s) to remove port redirect rule (eg. iptables -D ...)  
+Available placeholders: `{from}` and `{to}`
+#### `shell.apply`
+Shell command(s) to apply port redirect rules (eq. iptables-save)
