@@ -22,6 +22,7 @@
         }
     },
     "shell" : {
+        "stdout": false,
         "set": [
             "/usr/sbin/iptables -t nat -A PREROUTING -i enp0s31f6 -p tcp --dport {from} -j REDIRECT --to-port {to}"
         ],

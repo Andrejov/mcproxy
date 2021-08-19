@@ -84,9 +84,12 @@ async function shell(command)
 {
     try {
         const stdout = await execSync(command).toString();
-        console.log("  stdout:" + stdout);
+        if(config.shell.stdout)
+        {
+            console.log("  stdout:" + stdout);
+        }
     } catch (error) {
-        console.log("  BASH ERR:" + error);
+        console.error("  BASH ERR:" + error);
     }
 }
 
